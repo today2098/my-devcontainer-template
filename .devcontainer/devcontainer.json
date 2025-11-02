@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+	"name": "my-devcontainer-template",
+	// Or use a Dockerfile. More info: https://containers.dev/guide/dockerfile.
+	"dockerComposeFile": [
+		"compose.yaml",
+		"compose.mysql.yaml"
+	],
+	"service": "devcontainer",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/go:1": {},
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": 21,
+			"jdkDistro": "tem",
+			"installMaven": true
+		}
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"editor.formatOnSave": true,
+				"files.associations": {
+					"*.env": "properties",
+					"*.env.template": "properties"
+				}
+			},
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"golang.go",
+				"vscjava.vscode-java-pack",
+				"vmware.vscode-boot-dev-pack",
+				"mads-hartmann.bash-ide-vscode",
+				"docsmsft.docs-markdown",
+				"DavidAnson.vscode-markdownlint",
+				"redhat.vscode-yaml",
+				"cweijan.vscode-database-client2",
+				"ms-azuretools.vscode-docker",
+				"docker.docker",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"ms-vscode.hexeditor",
+				"ms-vscode.live-server",
+				"mechatroner.rainbow-csv",
+				"janisdd.vscode-edit-csv",
+				"GrapeCity.gc-excelviewer",
+				"tomoki1207.pdf",
+				"Postman.postman-for-vscode",
+				"GitHub.vscode-github-actions",
+				"cschlosser.doxdocgen"
+			]
+		}
+	},
+	"workspaceFolder": "/workspaces/yourworkspace",
+	"remoteUser": "devuser",
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+	"updateRemoteUserUID": false
+}

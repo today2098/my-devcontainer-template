@@ -1,0 +1,24 @@
+services:
+  devcontainer:
+    depends_on:
+      - mysql
+    networks:
+      - backend
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-todo}
+      MYSQL_USER: ${MYSQL_USER:-devuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+    networks:
+      - backend
+    volumes:
+      - mysql_date:/var/lib/mysql
+    restart: always
+
+networks:
+  backend:
+
+volumes:
+  mysql_date:
