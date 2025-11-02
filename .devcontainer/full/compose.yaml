@@ -1,0 +1,19 @@
+services:
+  devcontainer:
+    build:
+      context: ../..
+      dockerfile: .devcontainer/full/Dockerfile
+      args:
+        USERNAME: devuser
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+        GOPATH: /go
+        GOMODCACHE: /go/pkg/mod
+    volumes:
+      - ../..:/workspaces/yourworkspace:cache
+      - go_mod_cache:/go/pkg/mod:delegated
+    command: ["sleep", "infinity"]
+    restart: always
+
+volumes:
+  go_mod_cache:
