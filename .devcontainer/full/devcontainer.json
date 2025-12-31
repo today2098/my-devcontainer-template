@@ -9,7 +9,7 @@
 	"service": "devcontainer",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/go:1": {},
 		"ghcr.io/devcontainers/features/java:1": {
@@ -22,10 +22,43 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"editor.formatOnSave": true,
 				"files.associations": {
 					"*.env": "properties",
 					"*.env.template": "properties"
+				},
+				"java.configuration.updateBuildConfiguration": "automatic",
+				"java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current",
+				"sqltools.connections": [
+					{
+						"group": "local",
+						"name": "root",
+						"driver": "MySQL",
+						"server": "mysql",
+						"port": 3306,
+						"database": "mysql",
+						"username": "root",
+						"password": "${containerEnv:MYSQL_ROOT_PASSWORD}",
+						"previewLimit": 1000
+					},
+					{
+						"group": "local",
+						"name": "${containerEnv:MYSQL_USER}",
+						"driver": "MySQL",
+						"server": "mysql",
+						"port": 3306,
+						"database": "${containerEnv:MYSQL_DATABASE:-mysql}",
+						"username": "${containerEnv:MYSQL_USER}",
+						"password": "${containerEnv:MYSQL_PASSWORD}",
+						"previewLimit": 1000
+					}
+				],
+				"sqltools.sessionFilesFolder": "tmp/sqltools",
+				"database-client.defaultSelectLimit": 1000,
+				"database-client.capitalizeKeywordsWhenFormatting": true,
+				"database-client.enableEditorCodeLens": false,
+				"database-client.telemetry.usesOnlineServices": false,
+				"[sql]": {
+					"editor.defaultFormatter": "cweijan.vscode-database-client2"
 				}
 			},
 			"extensions": [
@@ -34,13 +67,18 @@
 				"vscjava.vscode-java-pack",
 				"vmware.vscode-boot-dev-pack",
 				"mads-hartmann.bash-ide-vscode",
-				"docsmsft.docs-markdown",
-				"DavidAnson.vscode-markdownlint",
+				"docsmsft.docs-authoring-pack",
+				"bierner.github-markdown-preview",
+				"redhat.vscode-xml",
 				"redhat.vscode-yaml",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-mysql",
+				"mtxr.sqltools-driver-sqlite",
 				"cweijan.vscode-database-client2",
 				"ms-azuretools.vscode-docker",
 				"docker.docker",
 				"mhutchie.git-graph",
+				"donjayamanne.githistory",
 				"eamodio.gitlens",
 				"ms-vscode.hexeditor",
 				"ms-vscode.live-server",

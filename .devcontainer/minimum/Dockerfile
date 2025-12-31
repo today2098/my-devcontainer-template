@@ -27,22 +27,23 @@ RUN apt-get update && \
     apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* && \
     go install github.com/asdf-vm/asdf/cmd/asdf@latest && \
-    echo ". <(asdf completion bash)" >> /etc/bash.bashrc
+    echo ". <(asdf completion bash)" >>/etc/bash.bashrc
 
 # Grant permissions to the user
 RUN umask 0002 && \
-    mkdir -p $GOPATH $ASDF_DATA_DIR $WORKSPACES_DIR && \
+    mkdir -p "$GOPATH" "$ASDF_DATA_DIR" "$WORKSPACES_DIR" && \
     groupadd -r golang && \
     groupadd -r asdf && \
-    usermod -aG golang,asdf $USERNAME && \
-    chown -R $USERNAME:golang $GOPATH && \
-    chown -R $USERNAME:asdf $ASDF_DATA_DIR && \
-    chown -R $USERNAME:$USERNAME $WORKSPACES_DIR && \
-    find $GOPATH $ASDF_DATA_DIR $WORKSPACES_DIR -type d -exec chmod g+s {} +
+    usermod -aG golang,asdf "$USERNAME" && \
+    chown -R "$USER_UID:golang" "$GOPATH" && \
+    chown -R "$USER_UID:asdf" "$ASDF_DATA_DIR" && \
+    chown -R "$USER_UID:$USER_GID" "$WORKSPACES_DIR" && \
+    find "$GOPATH" "$ASDF_DATA_DIR" "$WORKSPACES_DIR" -type d -exec chmod g+s {} +
 
 # Configure git
 RUN git config --system init.defaultBranch main && \
     git config --system alias.cof "!git branch -a | fzf | xargs git checkout"
 
+# Install other tools via asdf
 USER $USERNAME
 WORKDIR $WORKSPACES_DIR

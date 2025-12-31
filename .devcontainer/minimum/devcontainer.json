@@ -13,7 +13,6 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"editor.formatOnSave": true,
 				"files.associations": {
 					"*.env": "properties",
 					"*.env.template": "properties"
@@ -26,9 +25,7 @@
 				"docsmsft.docs-markdown",
 				"DavidAnson.vscode-markdownlint",
 				"mhutchie.git-graph",
-				"eamodio.gitlens",
-				"ms-vscode.hexeditor",
-				"cschlosser.doxdocgen"
+				"eamodio.gitlens"
 			]
 		}
 	},

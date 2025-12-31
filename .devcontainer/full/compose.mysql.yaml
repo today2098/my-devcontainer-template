@@ -2,8 +2,14 @@ services:
   devcontainer:
     depends_on:
       - mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-todo}
+      MYSQL_USER: ${MYSQL_USER:-devuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
     networks:
       - backend
+
   mysql:
     image: mysql:8.0
     environment:
@@ -14,7 +20,9 @@ services:
     networks:
       - backend
     volumes:
-      - mysql_date:/var/lib/mysql
+      - mysql_date:/var/lib/mysql:delegated
+      - ./db/mysql/conf.d:/etc/mysql/conf.d:cached
+      - ./db/mysql/initdb.d:/docker-entrypoint-initdb.d:cached
     restart: always
 
 networks:

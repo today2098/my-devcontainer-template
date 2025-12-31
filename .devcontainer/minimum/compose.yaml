@@ -8,8 +8,8 @@ services:
         GOPATH: /go
         GOMODCACHE: /go/pkg/mod
     volumes:
-      - ../..:/workspaces/yourworkspace:cache
       - go_mod_cache:/go/pkg/mod:delegated
+      - ../..:/workspaces/yourworkspace:cached
     command: ["sleep", "infinity"]
     restart: always
 
